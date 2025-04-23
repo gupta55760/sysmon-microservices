@@ -1,0 +1,6 @@
+fastapi==0.115.12
+httpx==0.28.1
+python_jose==3.4.0
+starlette==0.46.2
+uvicorn[standard]
+pydantic[email]

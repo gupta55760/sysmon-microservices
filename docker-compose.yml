@@ -1,0 +1,90 @@
+services:
+  db:
+    image: postgres:15
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  user_service:
+    build: ./user_service
+    expose:
+      - "8000"
+    depends_on:
+      db:
+        condition: service_healthy
+    env_file:
+      - ./user_service/.env  
+    volumes:
+      - ./user_service:/app/user_service
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/users/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    command: uvicorn user_service.main:app --host 0.0.0.0 --port 8000 --reload
+
+  feedback_service:
+    build: ./feedback_service
+    expose:
+      - "8002"
+    depends_on:
+      db:
+        condition: service_healthy
+    env_file:
+      - ./feedback_service/.env  
+    volumes:
+      - ./feedback_service:/app/feedback_service
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8002/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    command: uvicorn feedback_service.main:app --host 0.0.0.0 --port 8002 --reload
+
+  metrics_service:
+    build: ./metrics_service
+    expose:
+      - "8001"
+    volumes:
+      - ./metrics_service:/app/metrics_service
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8001/metrics/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    command: uvicorn metrics_service.main:app --host 0.0.0.0 --port 8001 --reload
+
+  api_gateway:
+    build: ./api_gateway
+    ports:
+      - "8080:8080"
+    depends_on:
+      user_service:
+        condition: service_healthy
+      feedback_service:
+        condition: service_healthy
+      metrics_service:
+        condition: service_healthy
+    volumes:
+      - ./api_gateway:/app/api_gateway
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    command: uvicorn api_gateway.main:app --host 0.0.0.0 --port 8080 --reload
+
+volumes:
+  pgdata:
+
