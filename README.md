@@ -1,122 +1,57 @@
-# sysmon_sdk
+# SysMon Microservices Platform
 
-![Build](https://github.com/gupta55760/sysmon-sdk/actions/workflows/python-tests.yml/badge.svg)
-![Coverage](coverage.svg)
+A modular system monitoring and feedback platform built with **FastAPI**, **React**, and **PostgreSQL** using a microservices architecture.
 
-A lightweight Python system monitoring SDK and CLI...
+## 🔧 Features
 
+- ✅ JWT Authentication and Role-Based Access Control (RBAC)
+- ✅ Microservices for User, Feedback, and Metrics
+- ✅ Central API Gateway with request routing and JWT verification
+- ✅ React Admin Dashboard with user management and system status
+- ✅ Docker-based deployment
+- ✅ OpenAPI docs with secure Bearer token auth support
+- ✅ Health & version endpoints for observability
 
-A lightweight Python system monitoring SDK and CLI that communicates with a background daemon process via Unix Domain Sockets (UDS). It lets users query system metrics like CPU and memory, and control the daemon using simple CLI commands.
+## 🧱 Architecture
 
----
+- `api_gateway/` - Routes external requests to appropriate microservices
+- `user_service/` - Manages user registration, login, and roles
+- `feedback_service/` - Handles feedback submissions and admin views
+- `metrics_service/` - Provides system-level metrics and status
+- `frontend/` - React-based admin dashboard (Role: admin, user, viewer)
+- `docker-compose.yml` - Spins up the full system locally
 
-## 🚀 Features
-
-- 🔧 Multithreaded daemon to monitor CPU and memory usage
-- 📡 Client-server communication over Unix domain sockets
-- 🧪 Test coverage with `pytest`, `pytest-cov`
-- 🖥 Simple CLI interface: `status`, `metrics`, `shutdown`
-- 🔐 PID file support and graceful shutdown
-
----
-
-## 📦 Installation (from PyPI)
-
-You can install the package from **PyPI** using:
-
-```bash
-pip install sysmon-sdk
-```
-
-
-## 📦 Installation (from TestPyPI)
-
-You can install the package from **TestPyPI** using:
+## 🚀 Getting Started
 
 ```bash
-pip install --index-url https://test.pypi.org/simple/ sysmon-sdk
+git clone https://github.com/gupta55760/sysmon-microservices.git
+cd sysmon-microservices
+cp .env.example .env  # set your DB creds
+docker-compose up --build
 ```
 
-> ⚠️ Make sure `psutil` is installed if not already. You can run:  
-> `pip install psutil`
+Access:
 
----
+- Frontend: http://localhost:3000
+- API Gateway: http://localhost:8080
+- Swagger UI: http://localhost:8080/docs
 
-## 🧑‍💻 Usage
+## 📦 Tech Stack
 
-First, run the daemon (this runs in the background):
+- Python + FastAPI
+- PostgreSQL
+- React
+- Docker
+- Pytest (testing in progress)
+- Playwright/Selenium (UI test automation – coming soon)
 
-```bash
-python -m sysmon_sdk.daemon
-```
+## 📌 Status
 
-Then use the CLI commands:
+Actively in progress. This repo evolves from the earlier [sysmon-sdk](https://github.com/gupta55760/sysmon-sdk) project.
 
-```bash
-sysmon status     # Check daemon status
-sysmon metrics    # View current CPU and memory usage
-sysmon shutdown   # Gracefully shut down the daemon
-```
+## 🧪 Upcoming
 
----
+- Pytest-based API test suite
+- Playwright UI test coverage
+- CI/CD integration with GitHub Actions
 
-## 🛠 Developer Setup
-
-Clone the repository and install locally:
-
-```bash
-git clone https://github.com/YOUR_USERNAME/sysmon-sdk.git
-cd sysmon-sdk
-pip install .
-```
-
-To run the CLI directly from source:
-
-```bash
-python -m sysmon_sdk.cli status
-```
-
----
-
-## 🧪 Running Tests
-
-Run all unit and integration tests:
-
-```bash
-pytest
-```
-
-To get test coverage:
-
-```bash
-pytest --cov=sysmon_sdk --cov-report=html
-open htmlcov/index.html
-```
-
-To run all tests and generate coverage reports with daemon:
-
-```bash
-./test_runner.sh
-```
-
----
-
-## 📁 Project Structure
-
-```
-sysmon_sdk/
-├── cli.py         # CLI entry point
-├── core.py        # Client-side socket interaction
-├── daemon.py      # Multithreaded background process
-├── config.py      # Loads socket path/config
-├── config.json    # Optional config file
-```
-
----
-
-## 📜 License
-
-This project is licensed under the MIT License.  
-Feel free to use, modify, and distribute.
-
----
