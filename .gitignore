@@ -17,4 +17,5 @@ build/
 pgdata/
 coverage/
 htmlcov/
+*.swp
 
