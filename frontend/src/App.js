@@ -59,12 +59,13 @@ function App() {
 
   useEffect(() => {
     const token = getToken();
+    const firstLoad = token === null;
     if (token) {
       const role = getRoleFromToken(token);
       setRole(role);
     }
 
-    if (!loggedOut) {
+    if (!loggedOut && token) {
       fetchStatus();
       fetchMetrics();
       fetchVersionAndHealth();

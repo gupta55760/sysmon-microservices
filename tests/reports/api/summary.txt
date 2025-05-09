@@ -1,0 +1,8 @@
+=========================== short test summary info ============================
+PASSED tests/api/test_login.py::test_login_variant[admin-password123-200-valid login]
+PASSED tests/api/test_login.py::test_login_variant[admin-wrongpass-401-invalid password]
+PASSED tests/api/test_login.py::test_login_variant[wronguser-password123-401-non-existent user]
+PASSED tests/api/test_login.py::test_login_variant[-password123-422-missing username]
+PASSED tests/api/test_login.py::test_login_variant[admin--422-missing password]
+PASSED tests/api/test_login.py::test_login_variant[--422-missing credentials]
+============================== 6 passed in 0.68s ===============================

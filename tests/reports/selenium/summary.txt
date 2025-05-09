@@ -1,0 +1,8 @@
+=========================== short test summary info ============================
+PASSED tests/gui/selenium/test_login.py::test_login_variants[admin-password123-True]
+PASSED tests/gui/selenium/test_login.py::test_login_variants[admin-wrongpass-False]
+PASSED tests/gui/selenium/test_login.py::test_login_variants[wronguser-password123-False]
+PASSED tests/gui/selenium/test_login.py::test_login_variants[-password123-False]
+PASSED tests/gui/selenium/test_login.py::test_login_variants[admin--False]
+PASSED tests/gui/selenium/test_login.py::test_login_variants[--False]
+============================== 6 passed in 8.99s ===============================

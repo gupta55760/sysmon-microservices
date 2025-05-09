@@ -1,0 +1,8 @@
+username,password,should_pass
+admin,password123,True
+admin,wrongpass,False
+wronguser,password123,False
+,password123,False
+admin,,False
+,,False
+

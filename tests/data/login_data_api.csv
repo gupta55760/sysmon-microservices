@@ -1,0 +1,7 @@
+username,password,expected_status,description
+admin,password123,200,valid login
+admin,wrongpass,401,invalid password
+wronguser,password123,401,non-existent user
+,password123,422,missing username
+admin,,422,missing password
+,,422,missing credentials

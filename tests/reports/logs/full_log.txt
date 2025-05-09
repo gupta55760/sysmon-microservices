@@ -1,0 +1,16 @@
+
+Running 6 tests using 1 worker
+
+  ✓  1 tests/gui/playwright/test_login.spec.js:9:3 › Login Test - username: "admin", password: "password123" (3.8s)
+  ✓  2 tests/gui/playwright/test_login.spec.js:9:3 › Login Test - username: "admin", password: "wrongpass" (1.8s)
+  ✓  3 tests/gui/playwright/test_login.spec.js:9:3 › Login Test - username: "wronguser", password: "password123" (1.7s)
+  ✓  4 tests/gui/playwright/test_login.spec.js:9:3 › Login Test - username: "(empty)", password: "password123" (1.0s)
+  ✓  5 tests/gui/playwright/test_login.spec.js:9:3 › Login Test - username: "admin", password: "(empty)" (798ms)
+  ✓  6 tests/gui/playwright/test_login.spec.js:9:3 › Login Test - username: "(empty)", password: "(empty)" (883ms)
+
+  6 passed (14.0s)
+
+To open last HTML report run:
+[36m[39m
+[36m  npx playwright show-report tests/reports/playwright[39m
+[36m[39m

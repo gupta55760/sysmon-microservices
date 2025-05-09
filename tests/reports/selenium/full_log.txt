@@ -1,0 +1,72 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.13.2, pytest-8.3.5, pluggy-1.5.0
+rootdir: /Users/arungupta/leetcode-practice/Python/sysmon_feedback_system
+plugins: cov-6.0.0, anyio-4.9.0, html-4.1.1, metadata-3.1.1, order-1.3.0, xdist-3.6.1
+collected 6 items
+
+tests/gui/selenium/test_login.py ......                                  [100%]
+
+==================================== PASSES ====================================
+_________________ test_login_variants[admin-password123-True] __________________
+----------------------------- Captured stdout call -----------------------------
+➡️ Navigating to http://localhost:3000
+🔍 Found element by css selector: input[placeholder="Username"]
+⌨️ Typed into element css selector: input[placeholder="Username"] -> admin
+🔍 Found element by css selector: input[placeholder="Password"]
+⌨️ Typed into element css selector: input[placeholder="Password"] -> password123
+🔍 Found element by tag name: button
+🖱️ Clicked element by tag name: button
+__________________ test_login_variants[admin-wrongpass-False] __________________
+----------------------------- Captured stdout call -----------------------------
+➡️ Navigating to http://localhost:3000
+🔍 Found element by css selector: input[placeholder="Username"]
+⌨️ Typed into element css selector: input[placeholder="Username"] -> admin
+🔍 Found element by css selector: input[placeholder="Password"]
+⌨️ Typed into element css selector: input[placeholder="Password"] -> wrongpass
+🔍 Found element by tag name: button
+🖱️ Clicked element by tag name: button
+_______________ test_login_variants[wronguser-password123-False] _______________
+----------------------------- Captured stdout call -----------------------------
+➡️ Navigating to http://localhost:3000
+🔍 Found element by css selector: input[placeholder="Username"]
+⌨️ Typed into element css selector: input[placeholder="Username"] -> wronguser
+🔍 Found element by css selector: input[placeholder="Password"]
+⌨️ Typed into element css selector: input[placeholder="Password"] -> password123
+🔍 Found element by tag name: button
+🖱️ Clicked element by tag name: button
+___________________ test_login_variants[-password123-False] ____________________
+----------------------------- Captured stdout call -----------------------------
+➡️ Navigating to http://localhost:3000
+🔍 Found element by css selector: input[placeholder="Username"]
+⌨️ Typed into element css selector: input[placeholder="Username"] -> 
+🔍 Found element by css selector: input[placeholder="Password"]
+⌨️ Typed into element css selector: input[placeholder="Password"] -> password123
+🔍 Found element by tag name: button
+🖱️ Clicked element by tag name: button
+______________________ test_login_variants[admin--False] _______________________
+----------------------------- Captured stdout call -----------------------------
+➡️ Navigating to http://localhost:3000
+🔍 Found element by css selector: input[placeholder="Username"]
+⌨️ Typed into element css selector: input[placeholder="Username"] -> admin
+🔍 Found element by css selector: input[placeholder="Password"]
+⌨️ Typed into element css selector: input[placeholder="Password"] -> 
+🔍 Found element by tag name: button
+🖱️ Clicked element by tag name: button
+_________________________ test_login_variants[--False] _________________________
+----------------------------- Captured stdout call -----------------------------
+➡️ Navigating to http://localhost:3000
+🔍 Found element by css selector: input[placeholder="Username"]
+⌨️ Typed into element css selector: input[placeholder="Username"] -> 
+🔍 Found element by css selector: input[placeholder="Password"]
+⌨️ Typed into element css selector: input[placeholder="Password"] -> 
+🔍 Found element by tag name: button
+🖱️ Clicked element by tag name: button
+- Generated html report: file:///Users/arungupta/leetcode-practice/Python/sysmon_feedback_system/tests/reports/selenium/report.html -
+=========================== short test summary info ============================
+PASSED tests/gui/selenium/test_login.py::test_login_variants[admin-password123-True]
+PASSED tests/gui/selenium/test_login.py::test_login_variants[admin-wrongpass-False]
+PASSED tests/gui/selenium/test_login.py::test_login_variants[wronguser-password123-False]
+PASSED tests/gui/selenium/test_login.py::test_login_variants[-password123-False]
+PASSED tests/gui/selenium/test_login.py::test_login_variants[admin--False]
+PASSED tests/gui/selenium/test_login.py::test_login_variants[--False]
+============================== 6 passed in 8.99s ===============================

@@ -1,0 +1,9 @@
+[
+  { "username": "admin", "password": "password123", "should_pass": true },
+  { "username": "admin", "password": "wrongpass", "should_pass": false },
+  { "username": "wronguser", "password": "password123", "should_pass": false },
+  { "username": "", "password": "password123", "should_pass": false },
+  { "username": "admin", "password": "", "should_pass": false },
+  { "username": "", "password": "", "should_pass": false }
+]
+

@@ -24,8 +24,8 @@ class RefreshTokenInput(BaseModel):
     refresh_token: str = Field(..., example="eyJhbGciOiJIUzI1...")
 
 class LoginInput(BaseModel):
-    username: str = Field(..., example="admin")
-    password: str = Field(..., example="password123")
+    username: str = Field(..., min_length=1, example="admin")
+    password: str = Field(..., min_length=1, example="password123")
 
 
 class UserOut(UserBase):
