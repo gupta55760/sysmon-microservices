@@ -1,0 +1,24 @@
+{
+  "login_url": "http://localhost:8080/api/users/login",
+  "feedback_url": "http://localhost:8080/api/feedback",
+  "username": "admin",
+  "password": "__ENV__:PERFTEST_PASSWORD",
+  "num_requests": 1,
+  "concurrency": 10,
+  "postgres": {
+    "host": "localhost",
+    "port": 5432,
+    "user": "postgres",
+    "password": "__ENV__:PGPASSWORD",
+    "database": "feedback_db"
+  },
+  "payload": {
+    "firstname": "Arun",
+    "lastname": "Gupta",
+    "email": "arun@example.com",
+    "rating": 5,
+    "category": "Online Order",
+    "comments": "Great performance test!",
+    "timestamp": "2025-05-11T18:00:00Z"
+  }
+}
