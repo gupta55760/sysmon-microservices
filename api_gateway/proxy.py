@@ -2,7 +2,9 @@ import httpx
 from fastapi import Request, Response
 from fastapi.responses import JSONResponse
 from api_gateway.auth import verify_jwt_token
+from api_gateway.logging_config import setup_logger
 
+logger = setup_logger("api_gateway", "logs/api_gateway.log")
 
 def is_protected(path: str) -> bool:
     PUBLIC_PATHS = [
@@ -16,37 +18,33 @@ def is_protected(path: str) -> bool:
         return False
     return any(path.startswith(p) for p in ["/api/users", "/api/metrics", "/api/feedback"])
 
-
 async def forward_request(request: Request, target_url: str) -> Response:
-    print(f"🔥 PATH RECEIVED: {request.url.path!r}")
+    logger.info(f"Forwarding request to: {target_url}")
     if is_protected(request.url.path):
         auth_header = request.headers.get("authorization")
         if not auth_header or not auth_header.startswith("Bearer "):
+            logger.warning("Missing or invalid Authorization header")
             return JSONResponse(status_code=401, content={"detail": "Missing or invalid Authorization header"})
 
         token = auth_header[7:]
-        print(f"auth_header is {auth_header}")
-        print(f"token is {token}")
         decoded = verify_jwt_token(token)
-        print(f"decoded token is {decoded}")
         if not decoded:
+            logger.warning("Invalid or expired JWT token")
             return JSONResponse(status_code=401, content={"detail": "Invalid or expired token"})
 
-        # Inject identity headers
-        headers = {
-          k: v for k, v in request.headers.items()
-          if k.lower() not in ("host", "x-user-role", "x-user-id")
-        }
+        logger.info(f"JWT validated for user: {decoded.get('sub')}")
 
+        headers = {
+            k: v for k, v in request.headers.items()
+            if k.lower() not in ("host", "x-user-role", "x-user-id")
+        }
         headers["x-user-id"] = decoded.get("sub", "")
         headers["x-user-role"] = decoded.get("role", "")
     else:
-        # No auth check for login/refresh
-        print(f"aaaaaaaaaaaaaaaaaa")
+        logger.info("Public route accessed")
         headers = {
             k: v for k, v in request.headers.items() if k.lower() != "host"
         }
-        print(f"headers is {headers}")
 
     body = await request.body()
 
@@ -59,6 +57,7 @@ async def forward_request(request: Request, target_url: str) -> Response:
             params=request.query_params,
         )
 
+    logger.info(f"Received response {resp.status_code} from {target_url}")
     return Response(
         content=resp.content,
         status_code=resp.status_code,

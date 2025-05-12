@@ -1,0 +1,12 @@
+# pytest.ini
+
+[pytest]
+addopts = --browser=chrome 
+testpaths =
+    tests/gui/selenium
+
+markers =
+    smoke: critical path tests
+    regression: full regression suite
+    login: login feature tests
+

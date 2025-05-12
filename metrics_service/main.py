@@ -2,8 +2,11 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from metrics_service.routes import router as metrics_router
 from metrics_service.metrics_collector import collect_metrics_forever
+from metrics_service.logging_config import setup_logger
 import threading
-import psutil, time
+
+# Setup logger
+logger = setup_logger("metrics_service", "logs/metrics_service.log")
 
 app = FastAPI(
     title="SysMon Metrics Service",
@@ -21,9 +24,10 @@ app.add_middleware(
 
 @app.on_event("startup")
 def start_background_metrics():
+    logger.info("Starting background metrics collection thread")
     app.state.latest_metrics = {}
     t = threading.Thread(target=collect_metrics_forever, args=(app,), daemon=True)
     t.start()
 
-
 app.include_router(metrics_router)
+
